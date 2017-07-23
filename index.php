@@ -1,3 +1,18 @@
+<?php
+$url=$GLOBALS['REQUEST_URI'];
+$crc=md5($url);
+
+$modif=time()-@filemtime ("cache/$crc");
+
+if ($modif<600)
+{ 
+include ("cache/$crc");
+exit();
+}
+
+ob_start ();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -263,3 +278,13 @@
     <script src="js/script.js" defer></script>
 </body>
 </html>
+
+<?php
+$cache = ob_get_contents();
+ob_end_clean ();
+echo $cache;
+
+$fp = @fopen ("cache/$crc", "w");
+@fwrite ($fp, $cache);
+@fclose ($fp);
+?>
