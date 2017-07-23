@@ -1,25 +1,15 @@
-<?php
-$url=$GLOBALS['REQUEST_URI'];
-$crc=md5($url);
-
-$modif=time()-@filemtime ("cache/$crc");
-
-if ($modif<600)
-{ 
-include ("cache/$crc");
-exit();
-}
-
-ob_start ();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="Cache-Control" content="max-age=360000, must-revalidate">
+    <title>My another one site!</title>
+    <link href="fonts\font-awesome-4.7.0\css\font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <div class="wrapper">
@@ -271,20 +261,6 @@ ob_start ();
             <h5>Made with love by polnikale</h5>
         </footer>
     </div>
-    
-    <link href="fonts\font-awesome-4.7.0\css\font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.min.css">
-    <script src="js/script.js" defer></script>
+   
 </body>
 </html>
-
-<?php
-$cache = ob_get_contents();
-ob_end_clean ();
-echo $cache;
-
-$fp = @fopen ("cache/$crc", "w");
-@fwrite ($fp, $cache);
-@fclose ($fp);
-?>
